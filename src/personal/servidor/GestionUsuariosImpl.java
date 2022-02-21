@@ -72,6 +72,8 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
         boolean registrado = false;
         if(getIndicePersonal(personal.id) != -1) return registrado;
         
+        if(this.personal.size() >= 3) return registrado;
+        
         this.personal.add(personal);
         registrado = true;
         return registrado;
