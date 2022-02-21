@@ -1,0 +1,23 @@
+module sop_corba{
+	interface GestionUsuarios{
+		struct PersonalDTO
+		{
+      string tipoId;
+      long id;
+	    string nombreCompleto;
+      string ocupacion;
+      string usuario;
+      string clave;
+		};
+
+    struct CredencialesDTO
+    {
+        string usuario;
+        string clave;
+    };
+
+    long abrirSesion(in CredencialesDTO credenciales);
+		boolean registrarPersonal(in PersonalDTO paciente);
+		PersonalDTO consultarPersonal(in long id);
+	};
+};

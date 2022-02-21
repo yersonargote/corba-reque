@@ -1,0 +1,5 @@
+module sop_corba{
+    interface GestionNotificaciones{
+        void enviarNotificacion(in string mensaje);
+    };
+};
