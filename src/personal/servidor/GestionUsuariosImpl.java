@@ -11,8 +11,12 @@ import notificacion.sop_corba.GestionNotificacionesHelper;
 import notificacion.sop_corba.GestionNotificacionesOperations;
 import org.omg.CosNaming.NamingContextExt;
 import personal.sop_corba.GestionUsuariosPOA;
+import personal.sop_corba.GestionUsuariosPackage.AsistenciaDTO;
 import personal.sop_corba.GestionUsuariosPackage.CredencialesDTO;
+import personal.sop_corba.GestionUsuariosPackage.PacienteDTO;
 import personal.sop_corba.GestionUsuariosPackage.PersonalDTO;
+import personal.sop_corba.GestionUsuariosPackage.ValoracionFisicaDTO;
+import personal.sop_corba.PafCallback;
 
 /**
  *
@@ -111,5 +115,50 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
             System.out.println("Error: " + ex.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public PersonalDTO[] listarPersonal() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean registrarPaciente(PacienteDTO paciente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public PacienteDTO consultarPaciente(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public PacienteDTO[] listarPacientes() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean registrarValoracionFisica(ValoracionFisicaDTO valoracion) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ValoracionFisicaDTO consultarValoracionFisica(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean registrarAsistencia(AsistenciaDTO asistencia) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public AsistenciaDTO consultarAsistencia(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void registrarCallback(PafCallback callback) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

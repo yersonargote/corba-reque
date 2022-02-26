@@ -1,4 +1,5 @@
 module sop_corba{
+
   interface PafCallback;
 
 	interface GestionUsuarios{
@@ -51,17 +52,24 @@ module sop_corba{
       string observacion;
     };
 
+    typedef sequence<PersonalDTO> Personas;
+    typedef sequence<PacienteDTO> Pacientes; 
+
     long abrirSesion(in CredencialesDTO credenciales);
 		boolean registrarPersonal(in PersonalDTO paciente);
 		PersonalDTO consultarPersonal(in long id);
-    PersonalDTO[] listarPersonal();
+    Personas listarPersonal();
     boolean registrarPaciente(in PacienteDTO paciente);
     PacienteDTO consultarPaciente(in long id);
-    PacienteDTO[] listarPacientes();
+    Pacientes listarPacientes();
     boolean registrarValoracionFisica(in ValoracionFisicaDTO valoracion);
     ValoracionFisicaDTO consultarValoracionFisica(in long id);
     boolean registrarAsistencia(in AsistenciaDTO asistencia);
     AsistenciaDTO consultarAsistencia(in long id);
-    void registrarCallbackk(in PafCallback callback);
+    void registrarCallback(in PafCallback callback);
 	};
+
+  interface PafCallback{
+    void notificar(in string mensaje);
+  };
 };
