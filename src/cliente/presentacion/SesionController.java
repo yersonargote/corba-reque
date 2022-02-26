@@ -101,6 +101,7 @@ public class SesionController extends AActionController {
                         menuSecretaria();
                         break;
                     case 2:
+                        this.gestorUsuarios.getGestionUsuarios().registrarCallback(this.gestorUsuarios.getCallback());
                         menuPaf();
                         break;
                     case 3:

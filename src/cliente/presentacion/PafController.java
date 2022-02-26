@@ -1,7 +1,6 @@
 package cliente.presentacion;
 
 import java.awt.event.ActionEvent;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import mvcf.AActionController;

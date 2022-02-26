@@ -93,6 +93,7 @@ public class GUIMenuAdmin extends javax.swing.JFrame implements AView {
         lblMensajeErrorListar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Administrador");
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         tbpPrincipal.setPreferredSize(new java.awt.Dimension(500, 700));

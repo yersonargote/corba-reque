@@ -2,6 +2,7 @@ package cliente.presentacion;
 
 import mvcf.AModel;
 import personal.sop_corba.GestionUsuariosOperations;
+import personal.sop_corba.PafCallback;
 
 /**
  *
@@ -9,6 +10,7 @@ import personal.sop_corba.GestionUsuariosOperations;
  */
 public class GestorUsuarios extends AModel {
     private GestionUsuariosOperations gestor;
+    private PafCallback callback;
     
     public GestorUsuarios() {}
     
@@ -23,4 +25,13 @@ public class GestorUsuarios extends AModel {
     public void setGestionUsuarios(GestionUsuariosOperations gestionUsuarios) {
         this.gestor = gestionUsuarios;
     }
+
+    public PafCallback getCallback() {
+        return callback;
+    }
+
+    public void setCallback(PafCallback callback) {
+        this.callback = callback;
+    }
+    
 }

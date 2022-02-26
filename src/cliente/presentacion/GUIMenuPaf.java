@@ -99,6 +99,7 @@ public class GUIMenuPaf extends javax.swing.JFrame implements AView {
         jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu PAF");
 
         lblIdentificacion.setText("Identificación");
 

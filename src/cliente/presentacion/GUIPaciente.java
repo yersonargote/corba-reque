@@ -55,6 +55,7 @@ public class GUIPaciente extends javax.swing.JFrame implements AView {
         btnConsultarAsistencia = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Paciente");
 
         jLabel1.setText("Consultar plan fisico");
 
