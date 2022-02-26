@@ -83,9 +83,9 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
     public PersonalDTO consultarPersonal(int id) {
         PersonalDTO personalDTO = null;
         int index = getIndicePersonal(id);
-        if(index == -1) return personalDTO;
-        
-        personalDTO = this.personal.get(index);
+        if(index != -1) {
+            personalDTO = this.personal.get(index);
+        }
         return personalDTO;
     }
     
@@ -100,6 +100,7 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
         return indice;
     }
     
+    // TODO: esto no es un callback es un registro de otro servidor.
     public boolean registrarCallback(NamingContextExt nce, String servicio) {
         //GestionNotificaciones ref;
         System.out.println("Consultando referencia remota");

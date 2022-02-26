@@ -1,4 +1,6 @@
 module sop_corba{
+  interface PafCallback;
+
 	interface GestionUsuarios{
 		struct PersonalDTO
 		{
@@ -16,8 +18,50 @@ module sop_corba{
         string clave;
     };
 
+    struct PacienteDTO
+    {
+      long id;
+      string nombre;
+      string facultad;
+      string tipoUsuario;
+      string fechaIngreso;
+      string patologia;
+      string usuario;
+      string clave;
+    };
+
+    struct ValoracionFisicaDTO
+    {
+      long id;
+      long idPaciente;
+      string fecha;
+      long frecuenciaCardiacaReposo;
+      long frecuenciaCardiacaActiva;
+      long estatura;
+      long brazo;
+      long cintura;
+      string estado;
+    };
+
+    struct AsistenciaDTO 
+    {
+      long id;
+      long idPaciente;
+      string fecha;
+      string observacion;
+    };
+
     long abrirSesion(in CredencialesDTO credenciales);
 		boolean registrarPersonal(in PersonalDTO paciente);
 		PersonalDTO consultarPersonal(in long id);
+    PersonalDTO[] listarPersonal();
+    boolean registrarPaciente(in PacienteDTO paciente);
+    PacienteDTO consultarPaciente(in long id);
+    PacienteDTO[] listarPacientes();
+    boolean registrarValoracionFisica(in ValoracionFisicaDTO valoracion);
+    ValoracionFisicaDTO consultarValoracionFisica(in long id);
+    boolean registrarAsistencia(in AsistenciaDTO asistencia);
+    AsistenciaDTO consultarAsistencia(in long id);
+    void registrarCallbackk(in PafCallback callback);
 	};
 };
