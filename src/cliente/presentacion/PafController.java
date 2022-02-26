@@ -1,6 +1,5 @@
 package cliente.presentacion;
 
-
 import java.awt.event.ActionEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -8,6 +7,8 @@ import java.util.List;
 import mvcf.AActionController;
 import mvcf.AModel;
 import mvcf.AView;
+import personal.sop_corba.GestionUsuariosPackage.AsistenciaDTO;
+import personal.sop_corba.GestionUsuariosPackage.ValoracionFisicaDTO;
 
 /**
  *
@@ -71,28 +72,22 @@ public class PafController extends AActionController {
     }
 
     private void registrarAsistencia() {
-//        int id;
-//        String fecha, observacion;
-//        boolean registrado = false;
-//
-//        id = Integer.parseInt(this.vista.getTxtIdAsistencia().getText());
-//        fecha = this.vista.getJcFechaAsistencia();
-//        observacion = this.vista.getTxtaObservacion().getText();
-//
-//        AsistenciaDTO asistencia = new AsistenciaDTO(id, id, fecha, observacion);
-//
-//        try {
-//            registrado = this.gestor.getGestionUsuarios().registrarAsistencia(asistencia);
-//        } catch (RemoteException ex) {
-//            this.vista.getLblMensajeErrorAsistencia().setText("Error: No se pudo registrar la asistencia del paciente\n" + ex.getMessage());
-//        }
-//        
-//        if (registrado) {
-//            this.vista.getLblMensajeErrorAsistencia().setText("Información: Asistencia registrada");
-//            this.semanas.clear();
-//        } else {
-//            this.vista.getLblMensajeErrorAsistencia().setText("Error: Asistencia NO registrada");
-//        }
+        int id;
+        String fecha, observacion;
+        boolean registrado;
+
+        id = Integer.parseInt(this.vista.getTxtIdAsistencia().getText());
+        fecha = this.vista.getJcFechaAsistencia();
+        observacion = this.vista.getTxtaObservacion().getText();
+
+        AsistenciaDTO asistencia = new AsistenciaDTO(id, id, fecha, observacion);
+        registrado = this.gestor.getGestionUsuarios().registrarAsistencia(asistencia);
+        
+        if (registrado) {
+            this.vista.getLblMensajeErrorRealizar().setText("Información: Asistencia registrada");
+        } else {
+            this.vista.getLblMensajeErrorRealizar().setText("Error: Asistencia NO registrada");
+        }
     }
 
     private void elaborarProgramaFisico() {
@@ -126,42 +121,38 @@ public class PafController extends AActionController {
     }
 
     private void realizarValoracionFisica() {
-//        int vId;
-//        int vFrecuenciaReposo, vFrecuenciaActiva, vEstatura, vMedidaBrazo, vMedidaCintura, vMedidaPecho;
-//        String vFecha, vEstado;
-//        boolean registrado = false;
-//        vId = Integer.parseInt(vista.getTxtIdentificacion().getText());
-//        vFrecuenciaReposo = Integer.parseInt(vista.getTxtFrecuenciaReposo().getText());
-//        vFrecuenciaActiva = Integer.parseInt(vista.getTxtFrecuenciaActiva().getText());
-//        vMedidaBrazo = Integer.parseInt(vista.getTxtMedidaB().getText());
-//        vMedidaCintura = Integer.parseInt(vista.getTxtMedidaC().getText());
-//        vEstatura = Integer.parseInt(vista.getTxtEstatura().getText());
-//        vMedidaPecho = Integer.parseInt(vista.getTxtMedidaP().getText());
-//
-//        if (vFrecuenciaReposo < 60) {
-//            vEstado = "Excelente";
-//        } else if (vFrecuenciaReposo >= 60 && vFrecuenciaReposo < 68) {
-//            vEstado = "Bueno";
-//        } else if (vFrecuenciaReposo >= 68 && vFrecuenciaReposo < 76) {
-//            vEstado = "Normal";
-//        } else {
-//            vEstado = "Inadecuado";
-//        }
-//        vFecha = vista.getJcFechaV();
-//
-//        ValoracionFisicaDTO objValoracion = new ValoracionFisicaDTO(vId, vId, vFecha, vFrecuenciaReposo, vFrecuenciaActiva, vEstatura,
-//                vMedidaBrazo, vMedidaPecho, vMedidaCintura, vEstado);
-//        try {
-//            registrado = this.gestor.getGestionUsuarios().registrarValoracionFisica(objValoracion);
-//        } catch (RemoteException ex) {
-//            this.vista.getLblMensajeErrorRealizar().setText("Error: No se pudo realizar la valoración del paciente\n" + ex.getMessage());
-//        }
-//
-//        if (registrado) {
-//            this.vista.getLblMensajeErrorRealizar().setText("Información: Valoración registrada");
-//        } else {
-//            this.vista.getLblMensajeErrorRealizar().setText("Error: Valoración NO registrada");
-//        }
+        int vId;
+        int vFrecuenciaReposo, vFrecuenciaActiva, vEstatura, vMedidaBrazo, vMedidaCintura, vMedidaPecho;
+        String vFecha, vEstado;
+        boolean registrado = false;
+        vId = Integer.parseInt(vista.getTxtIdentificacion().getText());
+        vFrecuenciaReposo = Integer.parseInt(vista.getTxtFrecuenciaReposo().getText());
+        vFrecuenciaActiva = Integer.parseInt(vista.getTxtFrecuenciaActiva().getText());
+        vMedidaBrazo = Integer.parseInt(vista.getTxtMedidaB().getText());
+        vMedidaCintura = Integer.parseInt(vista.getTxtMedidaC().getText());
+        vEstatura = Integer.parseInt(vista.getTxtEstatura().getText());
+        vMedidaPecho = Integer.parseInt(vista.getTxtMedidaP().getText());
+
+        if (vFrecuenciaReposo < 60) {
+            vEstado = "Excelente";
+        } else if (vFrecuenciaReposo >= 60 && vFrecuenciaReposo < 68) {
+            vEstado = "Bueno";
+        } else if (vFrecuenciaReposo >= 68 && vFrecuenciaReposo < 76) {
+            vEstado = "Normal";
+        } else {
+            vEstado = "Inadecuado";
+        }
+        vFecha = vista.getJcFechaV();
+
+        ValoracionFisicaDTO objValoracion = new ValoracionFisicaDTO(vId, vId, vFecha, vFrecuenciaReposo, vFrecuenciaActiva, vEstatura,
+                vMedidaBrazo, vMedidaPecho, vMedidaCintura, vEstado);
+        registrado = this.gestor.getGestionUsuarios().registrarValoracionFisica(objValoracion);
+
+        if (registrado) {
+            this.vista.getLblMensajeErrorRealizar().setText("Información: Valoración registrada");
+        } else {
+            this.vista.getLblMensajeErrorRealizar().setText("Error: Valoración NO registrada");
+        }
     }
 
 }

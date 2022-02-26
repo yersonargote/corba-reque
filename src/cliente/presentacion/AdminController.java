@@ -7,8 +7,6 @@ import mvcf.AView;
 
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
-import java.rmi.RemoteException;
-import java.util.List;
 import personal.sop_corba.GestionUsuariosPackage.PersonalDTO;
 
 public class AdminController extends AActionController {
@@ -90,21 +88,21 @@ public class AdminController extends AActionController {
     }
 
     private void listarPersonal() {
-//        List<PersonalDTO> personal = null;
-//        DefaultTableModel modelo = (DefaultTableModel) this.vista.getTblListaPersonal().getModel();
-//        Object fila[] = new Object[4];
-//        modelo.setRowCount(0);
-//
-//        personal = this.gestor.getGestionUsuarios().listarPersonal();
-//
-//        if (personal != null) {
-//            for (PersonalDTO per : personal) {
-//                fila[0] = per.getId();
-//                fila[1] = per.getNombreCompleto();
-//                fila[2] = per.getOcupacion();
-//                fila[3] = per.getUsuario();
-//                modelo.addRow(fila);
-//            }
-//        }
+        PersonalDTO[] personal = null;
+        DefaultTableModel modelo = (DefaultTableModel) this.vista.getTblListaPersonal().getModel();
+        Object fila[] = new Object[4];
+        modelo.setRowCount(0);
+
+        personal = this.gestor.getGestionUsuarios().listarPersonal();
+
+        if (personal != null) {
+            for (PersonalDTO per : personal) {
+                fila[0] = per.id;
+                fila[1] = per.nombreCompleto;
+                fila[2] = per.ocupacion;
+                fila[3] = per.usuario;
+                modelo.addRow(fila);
+            }
+        }
     }
 }

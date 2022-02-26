@@ -1,0 +1,8 @@
+orbd -ORBInitialHost localhost -ORBInitialPort 2022
+
+java s_seguimiento_usuarios.servidor.ServidorDeObjetos -ORBInitialHost localhost -ORBInitialPort 2022
+
+java s_gestion_usuarios.servidor.ServidorDeObjetos -ORBInitialHost localhost -ORBInitialPort 2022
+
+java cliente.ClienteDeObjetos -ORBInitialHost localhost -ORBInitialPort 2022
+

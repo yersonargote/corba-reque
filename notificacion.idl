@@ -1,5 +1,7 @@
 module sop_corba{
     interface GestionNotificaciones{
         void enviarNotificacion(in string mensaje);
+        boolean agregarHistorial(in long id, in string historial);
+        boolean agregarAsistencia(in string asistencia);
     };
 };

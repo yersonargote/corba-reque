@@ -5,8 +5,14 @@
  */
 package personal.servidor;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import notificacion.sop_corba.GestionNotificacionesHelper;
 import notificacion.sop_corba.GestionNotificacionesOperations;
 import org.omg.CosNaming.NamingContextExt;
@@ -23,29 +29,43 @@ import personal.sop_corba.PafCallback;
  * @author LENOVO
  */
 public class GestionUsuariosImpl extends GestionUsuariosPOA {
+    private static final int MAX_PACIENTES = 10;
+    private static final int MAX_PERSONAL = 3;
+    private static final int MAX_CALLBACKS = 10;
     private GestionNotificacionesOperations refNotificacion;
-    private final List<PersonalDTO> personal;
-//    private final List<CredencialesDTO> usuarios;
+    private final PersonalDTO[] personal;
+    private final PacienteDTO[] pacientes;
+    private int len_personal;
+    private int len_pacientes;
+    private int len_callbacks;
+    
+    private final PafCallback[] callbacks;
     
     public GestionUsuariosImpl() {
-        this.personal = new ArrayList<>();
+        this.personal = new PersonalDTO[MAX_PERSONAL];
+        this.pacientes = new PacienteDTO[MAX_PACIENTES];
+        this.callbacks = new PafCallback[MAX_CALLBACKS];
+        this.len_pacientes = 0;
+        this.len_callbacks = 0;
         this.refNotificacion = null;
-//        this.usuarios = new ArrayList<>();
         PersonalDTO admin = new PersonalDTO("cc", 12345678, "admin", "admin", "admin", "12345678");
-//        CredencialesDTO adminC = new CredencialesDTO("admin", "12345678");
-        this.personal.add(admin);
-//        this.usuarios.add(adminC);
+        this.personal[0] = admin;
+        this.len_personal = 1;
     }
 
     @Override
     public int abrirSesion(CredencialesDTO credenciales) {
+        System.out.println("Abriendo Sesion.");
         int rol = -1;
+        String usuario = "";
         if(this.personal == null) return rol;
-        if(this.personal.isEmpty()) return rol;
+        if(this.personal.length == 0) return rol;
         
-        for(PersonalDTO personalDTO : this.personal) {
-            if(personalDTO.usuario.equals(credenciales.usuario) && personalDTO.clave.equals(credenciales.clave)) {
-                switch(personalDTO.ocupacion) {
+        for(int i = 0; i < len_personal; i++) {
+            if(personal[i].usuario.equals(credenciales.usuario) && 
+                    personal[i].clave.equals(credenciales.clave)) {
+                usuario = personal[i].usuario;
+                switch(personal[i].ocupacion) {
                     case "admin":
                         rol = 0;
                         break;
@@ -55,48 +75,61 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
                     case "paf":
                         rol = 2;
                         break;
-                    case "paciente":
-                        rol = 3;
-                        break;
                     default:
                         break;
-                }
-                if(rol != -1 && this.refNotificacion != null) {
-                    String str = String.format("El usuario %s con el rol %d a ingresado al sistema.%n", personalDTO.usuario, rol);
-                    this.refNotificacion.enviarNotificacion(str);
                 }
                 break;
             }
         }
+        
+        if(rol == -1) {
+            for(int i = 0; i < len_pacientes; i++) {
+                if(pacientes[i].usuario.equals(credenciales.usuario) &&
+                        pacientes[i].clave.equals(credenciales.clave)) {
+                    usuario = pacientes[i].usuario;
+                    rol = 3;
+                    break;
+                }
+            }
+        }
+        
+        if(rol != -1 && this.refNotificacion != null) {
+                    String str = String.format("El usuario %s con el rol %d a ingresado al sistema.%n", 
+                            usuario, rol);
+                    this.refNotificacion.enviarNotificacion(str);
+                }
         return rol;
     }
 
     @Override
     public boolean registrarPersonal(PersonalDTO personal) {
+        System.out.println("Registrando personal.");
         boolean registrado = false;
         if(getIndicePersonal(personal.id) != -1) return registrado;
         
-        if(this.personal.size() >= 3) return registrado;
+        if(this.len_personal >= MAX_PERSONAL) return registrado;
         
-        this.personal.add(personal);
+        this.personal[len_personal] = personal;
+        this.len_personal++;
         registrado = true;
         return registrado;
     }
 
     @Override
     public PersonalDTO consultarPersonal(int id) {
+        System.out.println("Consultar Personal.");
         PersonalDTO personalDTO = null;
         int index = getIndicePersonal(id);
         if(index != -1) {
-            personalDTO = this.personal.get(index);
+            personalDTO = this.personal[index];
         }
         return personalDTO;
     }
     
     private int getIndicePersonal(int id) {
         int indice = -1;
-        for (int i = 0; i < this.personal.size(); i++) {
-            if (this.personal.get(i).id == id) {
+        for (int i = 0; i < this.len_personal; i++) {
+            if (this.personal[i].id == id) {
                 indice = i;
                 break;
             }
@@ -119,46 +152,159 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
 
     @Override
     public PersonalDTO[] listarPersonal() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Listando Personal.");
+        return Arrays.stream(this.personal).limit(this.len_personal).collect(Collectors.toList()).toArray(new PersonalDTO[this.len_personal]);
+    }
+    
+    private int getIndicePaciente(int id) {
+        int indice = -1;
+        for (int i = 0; i < this.len_pacientes; i++) {
+            if (this.pacientes[i].id == id) {
+                indice = i;
+                break;
+            }
+        }
+        return indice;
     }
 
     @Override
     public boolean registrarPaciente(PacienteDTO paciente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Registrando Paciente.");
+        boolean registrado = false;
+        if(getIndicePersonal(paciente.id) != -1) return registrado;
+        
+        if(this.len_pacientes >= MAX_PACIENTES) return registrado;
+        
+        this.pacientes[len_pacientes] = paciente;
+        this.len_pacientes++;
+        
+        // TODO: Hacer el callback a los pafs.
+        for(int i=0; i<len_callbacks; i++) {
+            String mensaje = String.format(
+                    "Id: %d y nombre %s. Esta disponible para ser valorado.%n",
+                    paciente.id, paciente.nombre
+            );
+            this.callbacks[i].notificar(mensaje);
+        }
+        registrado = true;
+        return registrado;
     }
 
     @Override
     public PacienteDTO consultarPaciente(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Consultando Paciente.");
+        PacienteDTO paciente = null;
+        int indice = this.getIndicePaciente(id);
+        if (indice >= 0) {
+            paciente = this.pacientes[indice];
+        }
+        return paciente;
     }
 
     @Override
     public PacienteDTO[] listarPacientes() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Listando Pacientes.");
+        return Arrays.stream(this.pacientes).limit(this.len_pacientes).collect(Collectors.toList()).toArray(new PacienteDTO[this.len_pacientes]);
     }
 
     @Override
     public boolean registrarValoracionFisica(ValoracionFisicaDTO valoracion) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Registrando valoracion fisica.");
+        boolean registrado = false;
+        if(getIndicePaciente(valoracion.id) == -1) return registrado;
+        
+        String info = valoracion.toCsv();
+        return this.refNotificacion.agregarHistorial(valoracion.idPaciente, info);
     }
 
     @Override
     public ValoracionFisicaDTO consultarValoracionFisica(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Valoracion fisica.");
+        String path = String.format("%s\\src\\notificacion\\archivos\\usuario%d.txt", 
+                System.getProperty("user.dir"), id);
+        ValoracionFisicaDTO valoracionFisica = null;
+        File file = new File(path);
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(file));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] partes = line.split(",");
+                if (partes.length == 10) {
+                    valoracionFisica = new ValoracionFisicaDTO(
+                            Integer.parseInt(partes[0]), Integer.parseInt(partes[1]),
+                            partes[2], Integer.parseInt(partes[3]), Integer.parseInt(partes[4]), 
+                            Integer.parseInt(partes[5]), Integer.parseInt(partes[6]), 
+                            Integer.parseInt(partes[7]), Integer.parseInt(partes[8]), partes[9]
+                    );
+                }
+            }
+        } catch (IOException ex) {
+        }
+        if (valoracionFisica != null) {
+            System.out.println("Valoracion fisica encontrada.");
+        } else
+            System.out.println("Valoracion fisica NO encontrada.");
+        return valoracionFisica;
     }
 
     @Override
     public boolean registrarAsistencia(AsistenciaDTO asistencia) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Registrando asistencia.");
+        boolean registrado = false;
+        if(getIndicePaciente(asistencia.idPaciente) == -1) return registrado;
+        return this.refNotificacion.agregarAsistencia(asistencia.toCsv());
     }
 
     @Override
-    public AsistenciaDTO consultarAsistencia(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AsistenciaDTO[] consultarAsistencia(int id) {
+        System.out.println("Consultando asistencia.");
+        String path = String.format("%s\\src\\notificacion\\archivos\\listadoAsistencia.txt", 
+                System.getProperty("user.dir"));
+        AsistenciaDTO asistenciaDTO = null;
+        File file = new File(path);
+        BufferedReader br = null;
+        List<AsistenciaDTO> asistencias = new ArrayList<>();
+        try {
+            br = new BufferedReader(new FileReader(file));
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] partes = line.split(",");
+                if (partes.length == 4 && Integer.parseInt(partes[0]) == id) {
+                    asistenciaDTO = new AsistenciaDTO(
+                            Integer.parseInt(partes[0]), Integer.parseInt(partes[1]), 
+                            partes[2], partes[3]);
+                    asistencias.add(asistenciaDTO);
+                }
+            }
+        } catch (IOException ex) {
+        } finally {
+            try {
+                if (br != null)
+                    br.close();
+            } catch (IOException ex) {
+                System.out.println("No se pudo cerrar el flujo.");
+            }
+        }
+        AsistenciaDTO[] array = new AsistenciaDTO[asistencias.size()];
+        
+        return asistencias.toArray(array);
     }
 
     @Override
     public void registrarCallback(PafCallback callback) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Registrando paf callback.");
+        boolean registrado = false;
+        for(PafCallback paf : this.callbacks) {
+            if(callback.equals(paf)) {
+                registrado = true;
+            }
+        }
+        if(!registrado && this.callbacks.length <= MAX_CALLBACKS) {
+            this.callbacks[len_callbacks] = callback;
+            this.len_callbacks++;
+        }
     }
 }
