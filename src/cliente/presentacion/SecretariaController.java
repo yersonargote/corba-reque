@@ -73,7 +73,7 @@ public class SecretariaController extends AActionController {
         int id = UtilidadesParse.StringToInt(this.vista.getTxtConsultaConsultar().getText());
             pacienteDTO = this.gestor.getGestionUsuarios().consultarPaciente(id);
 
-        if (pacienteDTO != null) {
+        if (pacienteDTO.id != 0) {
             this.vista.getLblMensajeErrorConsultar().setText("Personal encontrado.");
             this.vista.getLblNombreConsultaRes().setText(pacienteDTO.nombre);
             this.vista.getLblTipoUsuarioConsultaRes().setText(pacienteDTO.tipoUsuario);
@@ -98,7 +98,7 @@ public class SecretariaController extends AActionController {
         Object fila[] = new Object[7];
         pacientes = this.gestor.getGestionUsuarios().listarPacientes();
 
-        if (pacientes != null) {
+        if (pacientes.length != 0) {
             for (PacienteDTO paciente : pacientes) {
                 fila[0] = paciente.id;
                 fila[1] = paciente.nombre;

@@ -220,7 +220,7 @@ public class GUIMenuPaf extends javax.swing.JFrame implements AView {
                         .addContainerGap())))
         );
 
-        tbpPrincipal.addTab("Realizar", pnlRealizar);
+        tbpPrincipal.addTab("Realizar Valoracion Fisica", pnlRealizar);
 
         cbxSemanas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Semana 1", "Semana 2", "Semana 3", "Semana 4", "Semana 5", "Semana 6", "Semana 7", "Semana 8" }));
 
@@ -396,7 +396,7 @@ public class GUIMenuPaf extends javax.swing.JFrame implements AView {
                     .addContainerGap(380, Short.MAX_VALUE)))
         );
 
-        tbpPrincipal.addTab("Elaborar", pnlElaborar);
+        tbpPrincipal.addTab("Elaborar Programa Fisico", pnlElaborar);
 
         jLabel1.setText("Identificacion Paciente");
 
@@ -465,7 +465,7 @@ public class GUIMenuPaf extends javax.swing.JFrame implements AView {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
-        tbpPrincipal.addTab("Registrar", pnlRegistrarAsis);
+        tbpPrincipal.addTab("Registrar Asistencia Paciente", pnlRegistrarAsis);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

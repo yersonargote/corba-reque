@@ -82,6 +82,8 @@ public class SesionController extends AActionController {
         menuPaciente.getBtnConsultarValoracion().setActionCommand("valoracion");
         menuPaciente.getBtnConsultarAsistencia().addActionListener(pacienteController);
         menuPaciente.getBtnConsultarAsistencia().setActionCommand("asistencia");
+        menuPaciente.getBtnConsultarPlan().addActionListener(pacienteController);
+        menuPaciente.getBtnConsultarPlan().setActionCommand("plan");
     }
 
     @Override

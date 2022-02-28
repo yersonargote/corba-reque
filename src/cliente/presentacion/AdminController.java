@@ -74,7 +74,7 @@ public class AdminController extends AActionController {
         int id = UtilidadesParse.StringToInt(this.vista.getTxtConsultaConsultar().getText());
         personal = this.gestor.getGestionUsuarios().consultarPersonal(id);
 
-        if (personal != null) {
+        if (personal.id != 0) {
             this.vista.getLblMensajeErrorConsultar().setText("Personal encontrado.");
             this.vista.getLblNombreConsultaRes().setText(personal.nombreCompleto);
             this.vista.getLblOcupacionConsultaRes().setText(personal.ocupacion);
@@ -95,7 +95,7 @@ public class AdminController extends AActionController {
 
         personal = this.gestor.getGestionUsuarios().listarPersonal();
 
-        if (personal != null) {
+        if (personal.length != 0) {
             for (PersonalDTO per : personal) {
                 fila[0] = per.id;
                 fila[1] = per.nombreCompleto;

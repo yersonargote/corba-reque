@@ -53,8 +53,8 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Realizar">
-                <Property name="tabTitle" type="java.lang.String" value="Realizar"/>
+              <JTabbedPaneConstraints tabName="Realizar Valoracion Fisica">
+                <Property name="tabTitle" type="java.lang.String" value="Realizar Valoracion Fisica"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -282,8 +282,8 @@
         <Container class="javax.swing.JPanel" name="pnlElaborar">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Elaborar">
-                <Property name="tabTitle" type="java.lang.String" value="Elaborar"/>
+              <JTabbedPaneConstraints tabName="Elaborar Programa Fisico">
+                <Property name="tabTitle" type="java.lang.String" value="Elaborar Programa Fisico"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -620,8 +620,8 @@
         <Container class="javax.swing.JPanel" name="pnlRegistrarAsis">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Registrar">
-                <Property name="tabTitle" type="java.lang.String" value="Registrar"/>
+              <JTabbedPaneConstraints tabName="Registrar Asistencia Paciente">
+                <Property name="tabTitle" type="java.lang.String" value="Registrar Asistencia Paciente"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

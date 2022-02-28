@@ -19,8 +19,11 @@ import org.omg.CosNaming.NamingContextExt;
 import personal.sop_corba.GestionUsuariosPOA;
 import personal.sop_corba.GestionUsuariosPackage.AsistenciaDTO;
 import personal.sop_corba.GestionUsuariosPackage.CredencialesDTO;
+import personal.sop_corba.GestionUsuariosPackage.EjercicioDTO;
 import personal.sop_corba.GestionUsuariosPackage.PacienteDTO;
 import personal.sop_corba.GestionUsuariosPackage.PersonalDTO;
+import personal.sop_corba.GestionUsuariosPackage.ProgramaFisicoDTO;
+import personal.sop_corba.GestionUsuariosPackage.ProgramaSemanaDTO;
 import personal.sop_corba.GestionUsuariosPackage.ValoracionFisicaDTO;
 import personal.sop_corba.PafCallback;
 
@@ -35,6 +38,7 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
     private GestionNotificacionesOperations refNotificacion;
     private final PersonalDTO[] personal;
     private final PacienteDTO[] pacientes;
+    private final List<ProgramaFisicoDTO> programas;
     private int len_personal;
     private int len_pacientes;
     private int len_callbacks;
@@ -45,12 +49,22 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
         this.personal = new PersonalDTO[MAX_PERSONAL];
         this.pacientes = new PacienteDTO[MAX_PACIENTES];
         this.callbacks = new PafCallback[MAX_CALLBACKS];
+        this.programas = new ArrayList<>();
         this.len_pacientes = 0;
         this.len_callbacks = 0;
         this.refNotificacion = null;
-        PersonalDTO admin = new PersonalDTO("cc", 12345678, "admin", "admin", "admin", "12345678");
+        PersonalDTO admin = new PersonalDTO("cc", 0, "admin", "admin", "admin", "12345678");
+//        PersonalDTO secretaria = new PersonalDTO("cc", 1111, "secretaria", "secretaria", "secretaria", "12345678");
+//        PersonalDTO paf = new PersonalDTO("cc", 2222, "paf", "paf", "paf", "12345678");
+        
         this.personal[0] = admin;
+//        this.personal[1] = secretaria;
+//        this.personal[2] = paf;
         this.len_personal = 1;
+        
+//        PacienteDTO ana = new PacienteDTO(3333, "ana", "artes", "docente", "12-12-12", "dolor", "ana12345", "12345678");
+//        this.pacientes[0] = ana;
+//        this.len_pacientes = 1;
     }
 
     @Override
@@ -118,7 +132,7 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
     @Override
     public PersonalDTO consultarPersonal(int id) {
         System.out.println("Consultar Personal.");
-        PersonalDTO personalDTO = null;
+        PersonalDTO personalDTO = new PersonalDTO();
         int index = getIndicePersonal(id);
         if(index != -1) {
             personalDTO = this.personal[index];
@@ -193,7 +207,7 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
     @Override
     public PacienteDTO consultarPaciente(int id) {
         System.out.println("Consultando Paciente.");
-        PacienteDTO paciente = null;
+        PacienteDTO paciente = new PacienteDTO();
         int indice = this.getIndicePaciente(id);
         if (indice >= 0) {
             paciente = this.pacientes[indice];
@@ -222,7 +236,7 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
         System.out.println("Valoracion fisica.");
         String path = String.format("%s\\src\\notificacion\\archivos\\usuario%d.txt", 
                 System.getProperty("user.dir"), id);
-        ValoracionFisicaDTO valoracionFisica = null;
+        ValoracionFisicaDTO valoracionFisica = new ValoracionFisicaDTO();
         File file = new File(path);
         BufferedReader br = null;
         try {
@@ -242,10 +256,6 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
             }
         } catch (IOException ex) {
         }
-        if (valoracionFisica != null) {
-            System.out.println("Valoracion fisica encontrada.");
-        } else
-            System.out.println("Valoracion fisica NO encontrada.");
         return valoracionFisica;
     }
 
@@ -262,7 +272,7 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
         System.out.println("Consultando asistencia.");
         String path = String.format("%s\\src\\notificacion\\archivos\\listadoAsistencia.txt", 
                 System.getProperty("user.dir"));
-        AsistenciaDTO asistenciaDTO = null;
+        AsistenciaDTO asistenciaDTO = new AsistenciaDTO();
         File file = new File(path);
         BufferedReader br = null;
         List<AsistenciaDTO> asistencias = new ArrayList<>();
@@ -306,5 +316,39 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
             this.callbacks[len_callbacks] = callback;
             this.len_callbacks++;
         }
+    }
+
+    @Override
+    public boolean registrarProgramaFisico(ProgramaFisicoDTO programa) {
+        System.out.println("Registrando programa fisico.");
+        boolean registrado = false;
+        for(int i = 0; i < this.len_pacientes; i++) {
+            if(this.pacientes[i].id == programa.idPaciente) {
+                registrado = true;
+            }
+        }
+        
+        if(!registrado) return false;
+        
+        for(int i = 0; i < this.programas.size(); i++)  {
+            if(programa.idPaciente == this.programas.get(i).idPaciente) {
+                this.programas.set(i, programa);
+                return true;
+            }
+        }
+        this.programas.add(programa);
+        return true;
+    }
+
+    @Override
+    public ProgramaFisicoDTO consultarProgramaFisico(int id) {
+        System.out.println("Consultando programa fisico.");
+        for(int i = 0; i < this.programas.size(); i++) {
+            ProgramaFisicoDTO programa = this.programas.get(i);
+            if(programa.idPaciente == id) {
+                return programa;
+            }
+        }
+        return new ProgramaFisicoDTO();
     }
 }

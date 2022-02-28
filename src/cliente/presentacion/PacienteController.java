@@ -1,12 +1,12 @@
 package cliente.presentacion;
 
 import java.awt.event.ActionEvent;
-import java.rmi.RemoteException;
 import java.util.List;
 import mvcf.AActionController;
 import mvcf.AModel;
 import mvcf.AView;
 import personal.sop_corba.GestionUsuariosPackage.AsistenciaDTO;
+import personal.sop_corba.GestionUsuariosPackage.ProgramaFisicoDTO;
 import personal.sop_corba.GestionUsuariosPackage.ValoracionFisicaDTO;
 
 /**
@@ -41,7 +41,14 @@ public class PacienteController extends AActionController {
     }
 
     private void consultarPlanFisico() {
-
+        int id = Integer.parseInt(this.vista.getTxtIdentificacionPlan().getText());
+        ProgramaFisicoDTO programa = null;
+        programa = this.gestor.getGestionUsuarios().consultarProgramaFisico(id);
+        if(programa.id == 0) {
+            this.vista.getTxtaPlanFisicoRes().setText("No se encontro el plan fisico del paciente.");
+            return;
+        }
+        this.vista.getTxtaPlanFisicoRes().setText(programa.toString());
     }
 
     private void consultarAsistencia() {
@@ -50,7 +57,7 @@ public class PacienteController extends AActionController {
         AsistenciaDTO[] asistencias = null;
 
         asistencias = this.gestor.getGestionUsuarios().consultarAsistencia(id);
-        if (asistencias == null) {
+        if (asistencias.length == 0) {
             this.vista.getTxtaConsultarAsistencia().setText("No se encontraron asistencias del paciente.");
             return;
         }
@@ -67,7 +74,7 @@ public class PacienteController extends AActionController {
         ValoracionFisicaDTO valoracionFisicaDTO = null;
         valoracionFisicaDTO = this.gestor.getGestionUsuarios().consultarValoracionFisica(id);
 
-        if (valoracionFisicaDTO != null) {
+        if (valoracionFisicaDTO.id != 0) {
             String str = String.format("Información: Valoracion fisica encontrada.%n%s", valoracionFisicaDTO.toPrint());
             this.vista.getTxtValoracionRes().setText(str);
         } else {
