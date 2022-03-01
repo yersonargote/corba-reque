@@ -34,6 +34,12 @@ public class SesionController extends AActionController {
         menuAdmin.getBtnConsultar().setActionCommand("consultar");
         menuAdmin.getBtnListar().addActionListener(adminController);
         menuAdmin.getBtnListar().setActionCommand("listar");
+        menuAdmin.getBtnModificarConsultar().addActionListener(adminController);
+        menuAdmin.getBtnModificarConsultar().setActionCommand("consultar_modificar");
+        menuAdmin.getBtnModificar().addActionListener(adminController);
+        menuAdmin.getBtnModificar().setActionCommand("modificar");
+        menuAdmin.getBtnEliminar().addActionListener(adminController);
+        menuAdmin.getBtnEliminar().setActionCommand("eliminar");
     }
     
     private void menuSecretaria() {

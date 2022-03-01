@@ -54,17 +54,17 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
         this.len_callbacks = 0;
         this.refNotificacion = null;
         PersonalDTO admin = new PersonalDTO("cc", 0, "admin", "admin", "admin", "12345678");
-//        PersonalDTO secretaria = new PersonalDTO("cc", 1111, "secretaria", "secretaria", "secretaria", "12345678");
-//        PersonalDTO paf = new PersonalDTO("cc", 2222, "paf", "paf", "paf", "12345678");
+        PersonalDTO secretaria = new PersonalDTO("cc", 1111, "secretaria", "secretaria", "secretaria", "12345678");
+        PersonalDTO paf = new PersonalDTO("cc", 2222, "paf", "paf", "paf", "12345678");
         
         this.personal[0] = admin;
-//        this.personal[1] = secretaria;
-//        this.personal[2] = paf;
-        this.len_personal = 1;
+        this.personal[1] = secretaria;
+        this.personal[2] = paf;
+        this.len_personal = 3;
         
-//        PacienteDTO ana = new PacienteDTO(3333, "ana", "artes", "docente", "12-12-12", "dolor", "ana12345", "12345678");
-//        this.pacientes[0] = ana;
-//        this.len_pacientes = 1;
+        PacienteDTO ana = new PacienteDTO(3333, "ana", "artes", "docente", "12-12-12", "dolor", "ana12345", "12345678");
+        this.pacientes[0] = ana;
+        this.len_pacientes = 1;
     }
 
     @Override
@@ -350,5 +350,38 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
             }
         }
         return new ProgramaFisicoDTO();
+    }
+
+    @Override
+    public PersonalDTO modificarPersonal(PersonalDTO personal) {
+        System.out.println("Modificando personal.");
+        int idx = getIndicePersonal(personal.id);
+        if(idx == -1) return new PersonalDTO();
+        
+        PersonalDTO aux = this.personal[idx];
+        this.personal[idx] = personal;
+        return aux;
+    }
+
+    @Override
+    public PersonalDTO eliminarPersonal(int id) {
+        System.out.println("Eliminando personal.");
+        int idx = getIndicePersonal(id);
+        if(idx == -1) return new PersonalDTO();
+        
+        PersonalDTO eliminado = this.personal[idx];
+        this.personal[idx] = null;
+        this.len_personal--;
+        return eliminado;
+    }
+
+    @Override
+    public PacienteDTO modificarPaciente(PacienteDTO paciente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public PersonalDTO eliminarPaciente(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

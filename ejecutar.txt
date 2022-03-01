@@ -1,3 +1,5 @@
+idlj -fall -pkgPrefix sop_corba personal usuarios.idl
+
 orbd -ORBInitialHost localhost -ORBInitialPort 2022
 
 java s_seguimiento_usuarios.servidor.ServidorDeObjetos -ORBInitialHost localhost -ORBInitialPort 2022

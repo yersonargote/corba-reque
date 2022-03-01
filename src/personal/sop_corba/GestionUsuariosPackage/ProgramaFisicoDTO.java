@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * personal/sop_corba/GestionUsuariosPackage/ProgramaFisicoDTO.java . Generated
  * by the IDL-to-Java compiler (portable), version "3.2" from usuarios.idl
- * Sunday, February 27, 2022 4:47:09 PM COT
+ * Tuesday, March 1, 2022 2:25:28 PM COT
  */
 public final class ProgramaFisicoDTO implements org.omg.CORBA.portable.IDLEntity {
 
@@ -28,5 +28,4 @@ public final class ProgramaFisicoDTO implements org.omg.CORBA.portable.IDLEntity
     public String toString() {
         return "Id=" + id + "\nId Paciente=" + idPaciente + "\nFecha Inicio=" + fechaInicio + "\nSemanas=" + Arrays.toString(semanas);
     }
-
 } // class ProgramaFisicoDTO
