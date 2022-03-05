@@ -6,7 +6,7 @@
 package cliente;
 
 import javax.swing.JOptionPane;
-import personal.sop_corba.PafCallbackPOA;
+import s_gestion_usuarios.sop_corba.PafCallbackPOA;
 
 /**
  *

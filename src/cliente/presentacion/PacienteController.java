@@ -5,9 +5,9 @@ import java.util.List;
 import mvcf.AActionController;
 import mvcf.AModel;
 import mvcf.AView;
-import personal.sop_corba.GestionUsuariosPackage.AsistenciaDTO;
-import personal.sop_corba.GestionUsuariosPackage.ProgramaFisicoDTO;
-import personal.sop_corba.GestionUsuariosPackage.ValoracionFisicaDTO;
+import s_gestion_usuarios.sop_corba.GestionUsuariosPackage.AsistenciaDTO;
+import s_gestion_usuarios.sop_corba.GestionUsuariosPackage.ProgramaFisicoDTO;
+import s_gestion_usuarios.sop_corba.GestionUsuariosPackage.ValoracionFisicaDTO;
 
 /**
  *

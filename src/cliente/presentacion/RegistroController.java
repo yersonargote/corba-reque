@@ -12,10 +12,10 @@ import org.omg.CosNaming.NamingContextExt;
 import org.omg.CosNaming.NamingContextExtHelper;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
-import personal.sop_corba.GestionUsuariosHelper;
-import personal.sop_corba.GestionUsuariosOperations;
-import personal.sop_corba.PafCallback;
-import personal.sop_corba.PafCallbackHelper;
+import s_gestion_usuarios.sop_corba.GestionUsuariosHelper;
+import s_gestion_usuarios.sop_corba.GestionUsuariosOperations;
+import s_gestion_usuarios.sop_corba.PafCallback;
+import s_gestion_usuarios.sop_corba.PafCallbackHelper;
 
 /**
  *

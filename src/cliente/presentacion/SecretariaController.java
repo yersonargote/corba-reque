@@ -3,11 +3,12 @@ package cliente.presentacion;
 import cliente.UtilidadesFecha;
 import cliente.UtilidadesParse;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 import mvcf.AActionController;
 import mvcf.AModel;
 import mvcf.AView;
-import personal.sop_corba.GestionUsuariosPackage.PacienteDTO;
+import s_gestion_usuarios.sop_corba.GestionUsuariosPackage.PacienteDTO;
 
 /**
  *
@@ -35,6 +36,15 @@ public class SecretariaController extends AActionController {
                 break;
             case "listar":
                 listarPaciente();
+                break;
+            case "modificar":
+                modificarPaciente();
+                break;
+            case "eliminar":
+                eliminarPaciente();
+                break;
+            case "consultar_modificar":
+                consultarPacienteParaModificar();
                 break;
         }
     }
@@ -71,7 +81,7 @@ public class SecretariaController extends AActionController {
     private void consultarPaciente() {
         PacienteDTO pacienteDTO = null;
         int id = UtilidadesParse.StringToInt(this.vista.getTxtConsultaConsultar().getText());
-            pacienteDTO = this.gestor.getGestionUsuarios().consultarPaciente(id);
+        pacienteDTO = this.gestor.getGestionUsuarios().consultarPaciente(id);
 
         if (pacienteDTO.id != 0) {
             this.vista.getLblMensajeErrorConsultar().setText("Personal encontrado.");
@@ -96,6 +106,7 @@ public class SecretariaController extends AActionController {
         PacienteDTO[] pacientes = null;
         DefaultTableModel modelo = (DefaultTableModel) this.vista.getTblListaPacientes().getModel();
         Object fila[] = new Object[7];
+        modelo.setRowCount(0);
         pacientes = this.gestor.getGestionUsuarios().listarPacientes();
 
         if (pacientes.length != 0) {
@@ -110,6 +121,71 @@ public class SecretariaController extends AActionController {
                 modelo.addRow(fila);
             }
         }
+    }
+
+    private void consultarPacienteParaModificar() {
+        int id = UtilidadesParse.StringToInt(this.vista.getTxtModificarConsultar().getText());
+        PacienteDTO pacienteDTO = this.gestor.getGestionUsuarios().consultarPaciente(id);
+
+        if (pacienteDTO.id != 0) {
+            this.vista.getLblMensajeModificar().setText("Paciente Encontrado.");
+            this.vista.getTxtModificarId().setText(String.valueOf(pacienteDTO.id));
+            this.vista.getTxtModificarFacultad().setText(pacienteDTO.facultad);
+            this.vista.getTxtModificarNombre().setText(pacienteDTO.nombre);
+            this.vista.getTxtModificarUsuario().setText(pacienteDTO.usuario);
+            this.vista.getTxtModificarPatologia().setText(pacienteDTO.patologia);
+            int idx = getCbxTipoUsuario(this.vista.getCbxModificarTipoUsuario(), pacienteDTO.tipoUsuario);
+            this.vista.getCbxModificarTipoUsuario().setSelectedIndex(idx);
+            this.vista.getBtnModificar().setEnabled(true);
+        } else {
+            this.vista.getLblMensajeModificar().setText("Paciente No Encontrado.");
+            this.vista.getBtnModificar().setEnabled(false);
+        }
+
+    }
+
+    private void modificarPaciente() {
+        int id;
+        String nombre, facultad, tipoUsuario, fechaIngreso, patologia, usuario, clave;
+        id = UtilidadesParse.StringToInt(this.vista.getTxtModificarId().getText());
+        nombre = this.vista.getTxtModificarNombre().getText();
+        facultad = this.vista.getTxtModificarFacultad().getText();
+        patologia = this.vista.getTxtModificarPatologia().getText();
+        fechaIngreso = UtilidadesFecha.fechaActual();
+        usuario = this.vista.getTxtModificarUsuario().getText();
+        clave = String.valueOf(this.vista.getPssModificarClave().getPassword());
+        tipoUsuario = String.valueOf(this.vista.getCbxModificarTipoUsuario().getSelectedItem()).toLowerCase();
+        PacienteDTO pacienteDTO = new PacienteDTO(id, nombre, facultad, tipoUsuario, fechaIngreso, patologia, usuario, clave);
+        pacienteDTO = this.gestor.getGestionUsuarios().modificarPaciente(pacienteDTO);
+        if (pacienteDTO.id == 0) {
+            this.vista.getLblMensajeModificar().setText("No se modifico el paciente.");
+        } else {
+            this.vista.getLblMensajeModificar().setText("Paciente modificado.");
+        }
+        this.vista.getBtnModificar().setEnabled(false);
+    }
+
+    private void eliminarPaciente() {
+        int id = UtilidadesParse.StringToInt(this.vista.getTxtIdEliminar().getText());
+        PacienteDTO pacienteEliminado = this.gestor.getGestionUsuarios().eliminarPaciente(id);
+        Boolean eliminado = (pacienteEliminado.id == 0);
+        if (eliminado) {
+            this.vista.getLblEliminarMensaje().setText("Paciente No eliminado.");
+        } else {
+            this.vista.getLblEliminarMensaje().setText("Paciente eliminado.");
+        }
+
+    }
+
+    private int getCbxTipoUsuario(JComboBox<String> cbx, String tipoUsuario) {
+        int idx = -1;
+        for (int i = 0; i < cbx.getItemCount(); i++) {
+            if (cbx.getItemAt(i).toLowerCase().equals(tipoUsuario)) {
+                idx = i;
+                break;
+            }
+        }
+        return idx;
     }
 
 }

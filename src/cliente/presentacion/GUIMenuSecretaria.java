@@ -1,6 +1,8 @@
 package cliente.presentacion;
 
+import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -67,7 +69,42 @@ public class GUIMenuSecretaria extends javax.swing.JFrame implements AView {
         btnRegistrar = new javax.swing.JButton();
         lblMensajeErrorReg = new javax.swing.JLabel();
         pnlModificarPersonal = new javax.swing.JPanel();
+        lblTitulo = new javax.swing.JLabel();
+        pnlModificarConsultar = new javax.swing.JPanel();
+        lblModificarConsultar = new javax.swing.JLabel();
+        txtModificarConsultar = new javax.swing.JTextField();
+        btnModificarConsultar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txtModificarId = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtModificarNombre = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtModificarFacultad = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        cbxModificarTipoUsuario = new javax.swing.JComboBox<>();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        txtModificarPatologia = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        txtModificarUsuario = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        pssModificarClave = new javax.swing.JPasswordField();
+        jPanel7 = new javax.swing.JPanel();
+        btnModificar = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        lblMensajeModificar = new javax.swing.JLabel();
         pnlEliminarPersonal = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        lblIdEliminar = new javax.swing.JLabel();
+        txtIdEliminar = new javax.swing.JTextField();
+        btnEliminar = new javax.swing.JButton();
+        lblEliminarMensaje = new javax.swing.JLabel();
         pnlConsultarPersonal = new javax.swing.JPanel();
         pnlTituloConsultar = new javax.swing.JPanel();
         lblTituloConsultar = new javax.swing.JLabel();
@@ -213,29 +250,120 @@ public class GUIMenuSecretaria extends javax.swing.JFrame implements AView {
 
         tbpPrincipal.addTab("Registar", pnlRegistrarPersonal);
 
-        javax.swing.GroupLayout pnlModificarPersonalLayout = new javax.swing.GroupLayout(pnlModificarPersonal);
-        pnlModificarPersonal.setLayout(pnlModificarPersonalLayout);
-        pnlModificarPersonalLayout.setHorizontalGroup(
-            pnlModificarPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
-        );
-        pnlModificarPersonalLayout.setVerticalGroup(
-            pnlModificarPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
-        );
+        pnlModificarPersonal.setLayout(new java.awt.GridLayout(11, 0));
+
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Modificar Paciente");
+        pnlModificarPersonal.add(lblTitulo);
+
+        pnlModificarConsultar.setLayout(new java.awt.GridLayout(1, 0));
+
+        lblModificarConsultar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblModificarConsultar.setText("Consultar Paciente");
+        pnlModificarConsultar.add(lblModificarConsultar);
+        pnlModificarConsultar.add(txtModificarConsultar);
+
+        btnModificarConsultar.setText("Consultar");
+        pnlModificarConsultar.add(btnModificarConsultar);
+
+        pnlModificarPersonal.add(pnlModificarConsultar);
+
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Identificación");
+        jPanel1.add(jLabel1);
+
+        txtModificarId.setEnabled(false);
+        jPanel1.add(txtModificarId);
+
+        pnlModificarPersonal.add(jPanel1);
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Nombre Completo");
+        jPanel2.add(jLabel2);
+        jPanel2.add(txtModificarNombre);
+
+        pnlModificarPersonal.add(jPanel2);
+
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Facultad");
+        jPanel3.add(jLabel3);
+        jPanel3.add(txtModificarFacultad);
+
+        pnlModificarPersonal.add(jPanel3);
+
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Tipo de Usuario");
+        jPanel4.add(jLabel4);
+
+        cbxModificarTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Docente", "Administrativo" }));
+        jPanel4.add(cbxModificarTipoUsuario);
+
+        pnlModificarPersonal.add(jPanel4);
+
+        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Patologia");
+        jPanel9.add(jLabel7);
+        jPanel9.add(txtModificarPatologia);
+
+        pnlModificarPersonal.add(jPanel9);
+
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Usuario");
+        jPanel5.add(jLabel5);
+        jPanel5.add(txtModificarUsuario);
+
+        pnlModificarPersonal.add(jPanel5);
+
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Clave");
+        jPanel6.add(jLabel6);
+        jPanel6.add(pssModificarClave);
+
+        pnlModificarPersonal.add(jPanel6);
+
+        jPanel7.setLayout(new java.awt.GridLayout(1, 0));
+
+        btnModificar.setText("Modificar");
+        btnModificar.setEnabled(false);
+        jPanel7.add(btnModificar);
+
+        pnlModificarPersonal.add(jPanel7);
+
+        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel8.add(lblMensajeModificar);
+
+        pnlModificarPersonal.add(jPanel8);
 
         tbpPrincipal.addTab("Modificar", pnlModificarPersonal);
 
-        javax.swing.GroupLayout pnlEliminarPersonalLayout = new javax.swing.GroupLayout(pnlEliminarPersonal);
-        pnlEliminarPersonal.setLayout(pnlEliminarPersonalLayout);
-        pnlEliminarPersonalLayout.setHorizontalGroup(
-            pnlEliminarPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 696, Short.MAX_VALUE)
-        );
-        pnlEliminarPersonalLayout.setVerticalGroup(
-            pnlEliminarPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
-        );
+        pnlEliminarPersonal.setLayout(new java.awt.GridLayout(5, 0));
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Eliminar un paciente");
+        pnlEliminarPersonal.add(jLabel8);
+
+        lblIdEliminar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIdEliminar.setText("Identificacion");
+        pnlEliminarPersonal.add(lblIdEliminar);
+        pnlEliminarPersonal.add(txtIdEliminar);
+
+        btnEliminar.setText("Eliminar");
+        pnlEliminarPersonal.add(btnEliminar);
+        pnlEliminarPersonal.add(lblEliminarMensaje);
 
         tbpPrincipal.addTab("Eliminar", pnlEliminarPersonal);
 
@@ -437,7 +565,7 @@ public class GUIMenuSecretaria extends javax.swing.JFrame implements AView {
         return txtPatologiaReg;
     }
 
-    public JPasswordField getPssClaveReg() {
+    public JPasswordField getPssModificarClave() {
         return pssClaveReg;
     }
 
@@ -481,23 +609,104 @@ public class GUIMenuSecretaria extends javax.swing.JFrame implements AView {
     public JLabel getLblTipoUsuarioConsultaRes() {
         return lblTipoUsuarioConsultaRes;
     }
+    
+    public JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public JButton getBtnModificarConsultar() {
+        return btnModificarConsultar;
+    }
+
+    public JComboBox<String> getCbxModificarTipoUsuario() {
+        return cbxModificarTipoUsuario;
+    }
+
+    public JPasswordField getPssClaveReg() {
+        return pssClaveReg;
+    }
+
+    public JTextField getTxtModificarConsultar() {
+        return txtModificarConsultar;
+    }
+
+    public JTextField getTxtModificarFacultad() {
+        return txtModificarFacultad;
+    }
+
+    public JTextField getTxtModificarId() {
+        return txtModificarId;
+    }
+
+    public JTextField getTxtModificarNombre() {
+        return txtModificarNombre;
+    }
+
+    public JTextField getTxtModificarUsuario() {
+        return txtModificarUsuario;
+    }
+
+    public JLabel getLblMensajeModificar() {
+        return lblMensajeModificar;
+    }
+
+    public JTextField getTxtModificarPatologia() {
+        return txtModificarPatologia;
+    }
+    
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public JTextField getTxtIdEliminar() {
+        return txtIdEliminar;
+    }
+
+    public JLabel getLblEliminarMensaje() {
+        return lblEliminarMensaje;
+    }
 // Variables
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConsultar;
+    private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnModificarConsultar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JComboBox<String> cbxModificarTipoUsuario;
     private javax.swing.ButtonGroup gbtnTipoUsuarioReg;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblClaveReg;
     private javax.swing.JLabel lblConsultaConsultar;
+    private javax.swing.JLabel lblEliminarMensaje;
     private javax.swing.JLabel lblFacultadConsultar;
     private javax.swing.JLabel lblFacultadConsultarRes;
     private javax.swing.JLabel lblFechaIngresoConsultar;
     private javax.swing.JLabel lblFechaIngresoConsultarRes;
+    private javax.swing.JLabel lblIdEliminar;
     private javax.swing.JLabel lblIdReg;
     private javax.swing.JLabel lblMensajeErrorConsultar;
     private javax.swing.JLabel lblMensajeErrorListar;
     private javax.swing.JLabel lblMensajeErrorReg;
+    private javax.swing.JLabel lblMensajeModificar;
+    private javax.swing.JLabel lblModificarConsultar;
     private javax.swing.JLabel lblNombreConsultaRes;
     private javax.swing.JLabel lblNombreConsultar;
     private javax.swing.JLabel lblNombreReg;
@@ -508,6 +717,7 @@ public class GUIMenuSecretaria extends javax.swing.JFrame implements AView {
     private javax.swing.JLabel lblTipoUsuarioConsulta;
     private javax.swing.JLabel lblTipoUsuarioConsultaRes;
     private javax.swing.JLabel lblTipoUsuarioReg;
+    private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblTituloConsultar;
     private javax.swing.JLabel lblTituloListar;
     private javax.swing.JLabel lblTituloRegistrar;
@@ -525,6 +735,7 @@ public class GUIMenuSecretaria extends javax.swing.JFrame implements AView {
     private javax.swing.JPanel pnlInformacionConsultar;
     private javax.swing.JPanel pnlListarPersonal;
     private javax.swing.JPanel pnlMasInfoConsulta;
+    private javax.swing.JPanel pnlModificarConsultar;
     private javax.swing.JPanel pnlModificarPersonal;
     private javax.swing.JPanel pnlNombreReg;
     private javax.swing.JPanel pnlNorteListar;
@@ -540,13 +751,21 @@ public class GUIMenuSecretaria extends javax.swing.JFrame implements AView {
     private javax.swing.JPanel pnlTituloReg;
     private javax.swing.JPanel pnlUsuarioReg;
     private javax.swing.JPasswordField pssClaveReg;
+    private javax.swing.JPasswordField pssModificarClave;
     private javax.swing.JRadioButton rbtnAdministrativoReg;
     private javax.swing.JRadioButton rbtnDocenteReg;
     private javax.swing.JTable tblListaPacientes;
     private javax.swing.JTabbedPane tbpPrincipal;
     private javax.swing.JTextField txtConsultaConsultar;
     private javax.swing.JTextField txtFacultadReg;
+    private javax.swing.JTextField txtIdEliminar;
     private javax.swing.JTextField txtIdReg;
+    private javax.swing.JTextField txtModificarConsultar;
+    private javax.swing.JTextField txtModificarFacultad;
+    private javax.swing.JTextField txtModificarId;
+    private javax.swing.JTextField txtModificarNombre;
+    private javax.swing.JTextField txtModificarPatologia;
+    private javax.swing.JTextField txtModificarUsuario;
     private javax.swing.JTextField txtNombreReg;
     private javax.swing.JTextField txtPatologiaReg;
     private javax.swing.JTextField txtUsuarioReg;

@@ -94,7 +94,7 @@ module sop_corba{
     PacienteDTO consultarPaciente(in long id);
     Pacientes listarPacientes();
     PacienteDTO modificarPaciente(in PacienteDTO paciente);
-    PersonalDTO eliminarPaciente(in long id);
+    PacienteDTO eliminarPaciente(in long id);
     boolean registrarValoracionFisica(in ValoracionFisicaDTO valoracion);
     ValoracionFisicaDTO consultarValoracionFisica(in long id);
     boolean registrarAsistencia(in AsistenciaDTO asistencia);

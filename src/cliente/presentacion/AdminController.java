@@ -8,7 +8,7 @@ import mvcf.AView;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
-import personal.sop_corba.GestionUsuariosPackage.PersonalDTO;
+import s_gestion_usuarios.sop_corba.GestionUsuariosPackage.PersonalDTO;
 
 public class AdminController extends AActionController {
 

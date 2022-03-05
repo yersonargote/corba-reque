@@ -1,8 +1,8 @@
 package cliente.presentacion;
 
 import mvcf.AModel;
-import personal.sop_corba.GestionUsuariosOperations;
-import personal.sop_corba.PafCallback;
+import s_gestion_usuarios.sop_corba.GestionUsuariosOperations;
+import s_gestion_usuarios.sop_corba.PafCallback;
 
 /**
  *

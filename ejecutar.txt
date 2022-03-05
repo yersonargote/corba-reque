@@ -1,4 +1,5 @@
-idlj -fall -pkgPrefix sop_corba personal usuarios.idl
+idlj -fall -pkgPrefix sop_corba s_gestion_usuarios usuarios.idl
+idlj -fall -pkgPrefix sop_corba s_notificacion_usuarios notificacion.idl
 
 orbd -ORBInitialHost localhost -ORBInitialPort 2022
 

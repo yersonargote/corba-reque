@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import mvcf.AActionController;
 import mvcf.AModel;
 import mvcf.AView;
-import personal.sop_corba.GestionUsuariosPackage.CredencialesDTO;
+import s_gestion_usuarios.sop_corba.GestionUsuariosPackage.CredencialesDTO;
 
 /**
  *
@@ -55,6 +55,12 @@ public class SesionController extends AActionController {
         menuSecretaria.getBtnConsultar().setActionCommand("consultar");
         menuSecretaria.getBtnListar().addActionListener(secretariaController);
         menuSecretaria.getBtnListar().setActionCommand("listar");
+        menuSecretaria.getBtnModificarConsultar().addActionListener(secretariaController);
+        menuSecretaria.getBtnModificarConsultar().setActionCommand("consultar_modificar");
+        menuSecretaria.getBtnModificar().addActionListener(secretariaController);
+        menuSecretaria.getBtnModificar().setActionCommand("modificar");
+        menuSecretaria.getBtnEliminar().addActionListener(secretariaController);
+        menuSecretaria.getBtnEliminar().setActionCommand("eliminar");
     }
     
     
