@@ -54,19 +54,8 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
         this.len_callbacks = 0;
         this.refNotificacion = null;
         PersonalDTO admin = new PersonalDTO("cc", 0, "admin", "admin", "admin", "12345678");
-        PersonalDTO secretaria = new PersonalDTO("cc", 1111, "secretaria", "secretaria", "secretaria", "12345678");
-        PersonalDTO paf = new PersonalDTO("cc", 2222, "paf", "paf", "paf", "12345678");
-        
         this.personal.add(admin);
-        this.personal.add(secretaria);
-        this.personal.add(paf);
-        this.len_personal = 3;
-        
-        PacienteDTO ana = new PacienteDTO(3333, "ana", "artes", "docente", "12-12-12", "dolor", "ana12345", "12345678");
-        PacienteDTO test = new PacienteDTO(4444, "test", "artes", "docente", "12-12-12", "test dolor", "test12345", "12345678");
-        this.pacientes.add(ana);
-        this.pacientes.add(test);
-        this.len_pacientes = 2;
+        this.len_personal = 1;
     }
 
     @Override
@@ -169,8 +158,9 @@ public class GestionUsuariosImpl extends GestionUsuariosPOA {
     @Override
     public PersonalDTO[] listarPersonal() {
         System.out.println("Listando Personal.");
-        PersonalDTO[] array = new PersonalDTO[this.personal.size()];
-        return this.personal.toArray(array);
+        List<PersonalDTO> list = this.personal.stream().filter(element -> element.id != 0).collect(Collectors.toList());
+        PersonalDTO[] array = new PersonalDTO[list.size()];
+        return list.toArray(array);
     }
     
     private int getIndicePaciente(int id) {
